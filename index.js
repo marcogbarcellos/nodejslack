@@ -36,28 +36,6 @@ Slack.prototype._request = function(endpoint, data) {
         formData: data
     };
 
-	// return new Promise(function(resolve, reject) {
-
- //        request.post(requestData, function(err, request, body) {
- //            if (err) {
- //                return reject(err);
- //            }
-
- //            try {
- //                body = JSON.parse(body);
-
- //                // Slack api has a boolean property ok to indicate success or failure on the response.
- //                if (body.ok) {
- //                    resolve(body);
- //                } else {
- //                    reject(body);
- //                }
-
- //            } catch (e) {
- //                reject(e);
- //            }
- //        });
- //    });
     return request.post(requestData)
     .then(function (response) {
 
