@@ -1,0 +1,27 @@
+{
+  "name": "nodejslack",
+  "version": "1.0.0",
+  "description": "Slack APIs methods and WS ready to use in nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "nodejs",
+    "slack",
+    "api",
+    "bot",
+    "rtm",
+    "webservices",
+    "ws",
+    "rest"
+  ],
+  "author": "marcogbarcellos",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "fs": "0.0.1-security",
+    "request-promise": "^4.1.1"
+  }
+}
