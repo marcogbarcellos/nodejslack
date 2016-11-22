@@ -13,6 +13,43 @@ npm install nodejslack
 
 ## Methods
 
+### Channels
+
+- `archiveChannel(id)` (return: promise) - Archives a channel,
+- `createChannel(name)` (return: promise) - Creates a channel,
+- `getChannelHistory(data)` (return: promise) - Gets the history of a channel,
+- `getChannelInfo(id)` (return: promise) - Gets info of a channel,
+- `inviteUserToChannel(channelId, userId)` (return: promise) - Invites a user to a channel,
+- `joinChannel(channelName)` (return: promise) - Join(user) to a channel,
+- `kickUserFromChannel(channelId, userId)` (return: promise) - Kicks a user from a channel,
+- `leaveChannelfunction(channelId)` (return: promise) - Leaves a channel,
+- `getChannels()` (return: promise) - Get all channels,
+- `markChannel(channelId, ts)` (return: promise) - Moves the read cursor in a channel,
+- `renameChannel(channelId, name) ` (return: promise) - Renames a channel,
+- `setPurposeChannel(channelId, purpose)` (return: promise) - Sets a purpose of a channel,
+- `setTopicChannel(channelId, topic)` (return: promise) - Sets a topic of a channel,
+- `unarchiveChannel(channelId)` (return: promise) - Unarchives a channel
+
+### Chats
+
+- `meMessage(channelId, text)` (return: promise) - Sends a me message to a channel from the calling user,
+- `deleteMessage(ts, channelId, asUser)` (return: promise) - Deletes a message,
+- `postMessage(data)` (return: promise) - Posts a message,
+- `updateMessage(data)` (return: promise) - Updates a message
+
+### dnd(Do not Disturb)
+
+- `endDnd()` (return: promise) - Ends dnd(Do not disturb) mode,
+- `endSnooze()` (return: promise) - Ends Snooze mode,
+- `dndInfo(user)` (return: promise) - Provides information about a user's current Do Not Disturb settings,
+- `setSnooze(minutes)` (return: promise) - Sets Snooze mode,
+- `dndTeamInfo(users)` (return: promise) - Provides information about a Team's Do Not Disturb settings
+
+
+### Emoji
+
+- `getEmojiList()` (return: promise) - Gets Emoji List
+
 ### Files
 
 - `fileUpload(params)` (return: promise) - uploads a file,

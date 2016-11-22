@@ -14,7 +14,7 @@ function Slack(token) {
 
 /**
 ***************
-Channels ENDPOINTS TODO: README
+Channels ENDPOINTS
 ***************
 **/
 
@@ -153,7 +153,7 @@ Slack.prototype.unarchiveChannel = function(channelId) {
 
 /**
 ***************
-Chat ENDPOINTS TODO: README
+Chat ENDPOINTS
 ***************
 **/
 
@@ -235,7 +235,7 @@ Slack.prototype.dndInfo = function(user) {
 };
 
 /**
- * Provides information about a user's current Do Not Disturb settings.
+ * Set Snooze mode.
  * @param {number} minutes - Number of minutes, from now, to snooze until.
  * @returns {Promise}
  */
