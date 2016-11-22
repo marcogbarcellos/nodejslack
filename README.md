@@ -11,16 +11,29 @@ Also, this library is built using the Promises pattern, powered by [Bluebird](ht
 npm install nodejslack
 ```
 
-### Methods
+## Methods
+
+### Files
 
 - `fileUpload(params)` (return: promise) - uploads a file,
 - `getFilesList(params)` (return: promise) - returns a list of uploaded files,
 - `getFileInfo(id, count, page)` (return: promise) - returns informations about the specified file
+- `deleteFile(id)` (return: promise) - Delete specified file
+- `fileRevokePublicURL(id)` (return: promise) - Disables public URL the specified file
+- `fileEnablePublicURL(id)` (return: promise) - Enables public URL the specified file
+
+### Files.comment
+
+- `fileAddComment(id, comment)` (return: promise) - Add a comment to a file,
+- `fileEditComment(id, fileId, comment)` (return: promise) - Edit an existing comment about a file
+- `fileDeleteComment(id, fileId)` (return: promise) - Delete a comment about a file
+
+
 
 
 ## Usage
 
-### slack.fileUpload
+### slack.fileUpload(params)
 
 ```js
 var Slack = require('nodejslack');
@@ -53,11 +66,11 @@ slack.fileUpload(form)
 	return Promise.resolve(response);
 })
 .catch(function(err){
-	return Promise.reject(err);
+	return err;
 });
 ```
 
-### slack.getFilesList
+### slack.getFilesList(params)
 
 ```js
 var Slack = require('nodejslack');
@@ -90,11 +103,11 @@ slack.getFilesList(form)
 	return Promise.resolve(response);
 })
 .catch(function(err){
-	return Promise.reject(err);
+	return err;
 });
 ```
 
-### slack.getFileInfo
+### slack.getFileInfo(id, count, page)
 
 ```js
 var Slack = require('nodejslack');
@@ -122,6 +135,145 @@ slack.getFileInfo(fileId, count, page)
 	return Promise.resolve(response);
 })
 .catch(function(err){
-	return Promise.reject(err);
+	return err;
+});
+```
+
+### slack.deleteFile(id)
+
+```js
+var Slack = require('nodejslack');
+var fs = require('fs');
+var SLACK_TOKEN = process.env.SLACK_TOKEN || 'YOUR_GENERATED_SLACK_TOKEN';
+
+var slack = new Slack(SLACK_TOKEN);
+
+
+var fileId = 'UH45344543'; // File ID
+
+slack.deleteFile(fileId)
+.then(function(response){
+
+	// Slack sends a json with a boolean var ok. 
+	// Error example : data = { ok: false, error: 'user_not_found' }
+	// Error example : data = { ok: true, file: 'user_not_found' }
+	if(!response || !response.ok){
+		return Promise.reject(new Error('Something wrong happened during the request.'));
+	}
+	console.log('File successfully deleted:',response);
+
+	return Promise.resolve(response);
+})
+.catch(function(err){
+	return err;
+});
+```
+
+### slack.fileRevokePublicURL(id)
+
+```js
+var Slack = require('nodejslack');
+var fs = require('fs');
+var SLACK_TOKEN = process.env.SLACK_TOKEN || 'YOUR_GENERATED_SLACK_TOKEN';
+
+var slack = new Slack(SLACK_TOKEN);
+
+
+var fileId = 'UH45344543'; // File ID
+
+slack.fileRevokePublicURL(fileId)
+.then(function(response){
+
+	// Slack sends a json with a boolean var ok. 
+	// Error example : data = { ok: false, error: 'user_not_found' }
+	// Error example : data = { ok: true, file: 'user_not_found' }
+	if(!response || !response.ok){
+		return Promise.reject(new Error('Something wrong happened during the request.'));
+	}
+	console.log('File URL successfully disabled:',response);
+
+	return Promise.resolve(response);
+})
+.catch(function(err){
+	return err;
+});
+```
+
+### slack.fileEnablePublicURL(id)
+
+```js
+var Slack = require('nodejslack');
+var fs = require('fs');
+var SLACK_TOKEN = process.env.SLACK_TOKEN || 'YOUR_GENERATED_SLACK_TOKEN';
+
+var slack = new Slack(SLACK_TOKEN);
+
+
+var fileId = 'UH45344543'; // File ID
+
+slack.fileEnablePublicURL(fileId)
+.then(function(response){
+
+	// Slack sends a json with a boolean var ok. 
+	// Error example : data = { ok: false, error: 'user_not_found' }
+	// Error example : data = { ok: true, file: 'user_not_found' }
+	if(!response || !response.ok){
+		return Promise.reject(new Error('Something wrong happened during the request.'));
+	}
+	console.log('File URL successfully enabled:',response);
+
+	return Promise.resolve(response);
+})
+.catch(function(err){
+	return err;
+});
+```
+
+
+- `fileAddComment(id, comment)` (return: promise) - Add a comment to a file,
+- `fileEditComment(id, fileId, comment)` (return: promise) - Edit an existing comment about a file
+- `fileDeleteComment(id, fileId)` (return: promise) - Delete a comment about a file
+
+### slack.fileAddComment(id, comment) + slack.fileEditComment(id, fileId, comment) + slack.fileDeleteComment(id, fileId)
+
+```js
+var Slack = require('nodejslack');
+var fs = require('fs');
+var SLACK_TOKEN = process.env.SLACK_TOKEN || 'YOUR_GENERATED_SLACK_TOKEN';
+
+var slack = new Slack(SLACK_TOKEN);
+
+
+var fileId = 'UH45344543'; // File ID
+
+slack.fileAddComment(fileId, 'New Comment being added')
+.then(function(answer){
+	if (!answer.ok && answer.error) {
+		return Promise.reject(new Error(answer.error));
+	}
+	console.log('Comment Added:',answer);
+	
+	return slack.fileEditComment(answer.comment.id, fileId, 'New Comment being edited');
+})
+.then(function(answer){
+	if (!answer.ok && answer.error) {
+		return Promise.reject(new Error(answer.error));
+	}
+	console.log('Comment Edited:',answer);
+	
+	return slack.fileDeleteComment(answer.comment.id, fileId);
+})
+
+.then(function(answer){
+	if (!answer.ok && answer.error) {
+		return Promise.reject(new Error(answer.error));
+	}
+	console.log('Comment Deleted:',answer);
+	
+	return Promise.resolve(answer);
+})
+.catch(function(err){
+	console.log('Did not ADD/EDIT/DELETE File Comment:',err);
+	return err;
 });
 ```

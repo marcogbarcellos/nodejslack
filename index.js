@@ -12,6 +12,62 @@ function Slack(token) {
     this.token = token;
 }
 
+/**
+***************
+FILES.COMMENTS ENDPOINTS
+***************
+**/
+
+/**
+ * Add comment to file
+ * @param {string} id - File Id
+ * @param {string} comment
+ * @returns {object}
+ */
+Slack.prototype.fileAddComment = function(id, comment) {
+    var data = {
+        file: id,
+        comment: comment
+    }
+    return this._post('files.comments.add',data);
+};
+
+/**
+ * Edit an existing comment from a file
+ * @param {string} id - Comment Id
+ * @param {string} fileId - File Id
+ * @param {string} comment
+ * @returns {object}
+ */
+Slack.prototype.fileEditComment = function(id, fileId, comment) {
+    var data = {
+        id: id,
+        file: fileId,
+        comment: comment
+    }
+    return this._post('files.comments.edit',data);
+};
+
+/**
+ * Delete a comment from a file
+ * @param {string} id - Comment Id
+ * @param {string} fileId - File Id
+ * @returns {object}
+ */
+Slack.prototype.fileDeleteComment = function(id, fileId) {
+    var data = {
+        id: id,
+        file: fileId
+    }
+    return this._post('files.comments.delete',data);
+};
+
+
+/**
+***************
+FILES ENDPOINTS
+***************
+**/
 
 /**
  * Upload File
@@ -34,7 +90,9 @@ Slack.prototype.getFilesList = function(data) {
 
 /**
  * Get informations about a specific File
- * @param {object} data
+ * @param {string} id
+ * @param {number} count - default 100
+ * @param {number} page - default 1
  * @returns {object}
  */
 Slack.prototype.getFileInfo = function(id, count, page) {
@@ -44,6 +102,42 @@ Slack.prototype.getFileInfo = function(id, count, page) {
     	page: page || 1
     }
     return this._post('files.info',data);
+};
+
+/**
+ * Get informations about a specific File
+ * @param {string} id
+ * @returns {object}
+ */
+Slack.prototype.deleteFile = function(id) {
+    var data = {
+        file: id
+    }
+    return this._post('files.delete',data);
+};
+
+/**
+ * Disables public/external sharing for a file.
+ * @param {string} id
+ * @returns {object}
+ */
+Slack.prototype.fileRevokePublicURL = function(id) {
+    var data = {
+        file: id
+    }
+    return this._post('files.revokePublicURL',data);
+};
+
+/**
+ * Enables public/external sharing for a file.
+ * @param {string} id
+ * @returns {object}
+ */
+Slack.prototype.fileEnablePublicURL = function(id) {
+    var data = {
+        file: id
+    }
+    return this._post('files.sharedPublicURL',data);
 };
 
 /**
