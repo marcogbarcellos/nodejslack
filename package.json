@@ -3,6 +3,18 @@
   "version": "1.1.0",
   "description": "Slack APIs methods and WS ready to use in nodejs",
   "main": "index.js",
+  "author": {
+    "name": "Marco Barcellos",
+    "email": "marcogbarcellos@gmail.com"
+  },
+  "homepage": "https://github.com/marcogbarcellos/nodejslack",
+  "bugs": {
+    "url": "https://github.com/marcogbarcellos/nodejslack/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marcogbarcellos/nodejslack.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
