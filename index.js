@@ -19,7 +19,75 @@ function Slack(token) {
  * @returns {object}
  */
 Slack.prototype.fileUpload = function(data) {
-    return this._request('files.upload',data);
+    return this._post('files.upload',data);
+};
+
+/**
+ * Get a list of Files
+ * @param {object} data
+ * @returns {object}
+ */
+Slack.prototype.getFilesList = function(data) {
+    return this._post('files.list',data);
+};
+
+
+/**
+ * Get informations about a specific File
+ * @param {object} data
+ * @returns {object}
+ */
+Slack.prototype.getFileInfo = function(id, count, page) {
+    var data = {
+    	file: id,
+    	count: count || 100,
+    	page: page || 1
+    }
+    return this._post('files.info',data);
+};
+
+/**
+ * Send POST request to API method
+ * @param {string} endpoint
+ * @param {object} params
+ * @returns {Promise}
+ * @private
+ */
+Slack.prototype._post = function(endpoint, data) {
+	return this._request(request.post, endpoint, data);
+};
+
+/**
+ * Send POST request to API method
+ * @param {string} endpoint
+ * @param {object} params
+ * @returns {Promise}
+ * @private
+ */
+Slack.prototype._get = function(endpoint, data) {
+	return this._request(request.get, endpoint, data);
+};
+
+/**
+ * Send POST request to API method
+ * @param {string} endpoint
+ * @param {object} params
+ * @returns {Promise}
+ * @private
+ */
+Slack.prototype._put = function(endpoint, data) {
+	return this._request(request.put, endpoint, data);
+};
+
+/**
+ * Send POST request to API method
+ * @param {string} endpoint
+ * @param {object} params
+ * @returns {Promise}
+ * @private
+ */
+Slack.prototype._delete = function(endpoint, data) {
+	return this._request(request.del, endpoint, data);
 };
 
 /**
@@ -29,18 +97,18 @@ Slack.prototype.fileUpload = function(data) {
  * @returns {Promise}
  * @private
  */
-Slack.prototype._request = function(endpoint, data) {
+Slack.prototype._request = function(httpFunction, endpoint, data) {
 
     var requestData = {
         url: 'https://slack.com/api/' + endpoint+'?token='+this.token,
         formData: data
     };
 
-    return request.post(requestData)
+    return httpFunction(requestData)
     .then(function (response) {
 
     	try {
-            response = JSON.parse(response);
+    		response = JSON.parse(response);
 
             // Slack api has a boolean property ok to indicate success or failure on the response.
             if (response.ok) {

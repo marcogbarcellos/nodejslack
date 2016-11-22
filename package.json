@@ -1,6 +1,6 @@
 {
   "name": "nodejslack",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Slack APIs methods and WS ready to use in nodejs",
   "main": "index.js",
   "scripts": {
