@@ -14,6 +14,21 @@ function Slack(token) {
 
 /**
 ***************
+Bot ENDPOINT
+***************
+**/
+
+/**
+ * Gets info about a Bot
+ * @param {string} id - Bot Id
+ * @returns {Promise}
+ */
+Slack.prototype.getBotInfo = function(id) {
+    return this._post('bots.info', {bot: id} );
+};
+
+/**
+***************
 Channels ENDPOINTS
 ***************
 **/
@@ -399,6 +414,177 @@ Slack.prototype.fileEnablePublicURL = function(id) {
     }
     return this._post('files.sharedPublicURL',data);
 };
+
+
+/**
+***************
+GROUPS ENDPOINTS : TODO 
+***************
+**/
+
+/**
+***************
+IM(Direct Messages) ENDPOINTS : TODO 
+***************
+**/
+
+/**
+***************
+MPIM(Multi-party Direct Messages) ENDPOINTS : TODO 
+***************
+**/
+
+/**
+***************
+PIN ENDPOINTS : TODO 
+***************
+**/
+
+/**
+***************
+REACTIONS ENDPOINTS : TODO 
+***************
+**/
+
+/**
+***************
+REMINDERS ENDPOINTS : TODO 
+***************
+**/
+
+/**
+***************
+RTM ENDPOINT : TODO 
+***************
+**/
+
+/**
+***************
+SEARCH ENDPOINTS : TODO 
+***************
+**/
+
+/**
+***************
+STARS ENDPOINTS : TODO 
+***************
+**/
+
+/**
+***************
+STARS ENDPOINTS : TODO 
+***************
+**/
+
+/**
+***************
+TEAM ENDPOINTS : TODO 
+***************
+**/
+
+/**
+***************
+TEAM PROFILES ENDPOINTS : TODO 
+***************
+**/
+
+
+/**
+***************
+USERGROUPS ENDPOINTS : TODO 
+***************
+**/
+
+
+/**
+***************
+USERGROUPS.USERS ENDPOINTS : TODO 
+***************
+**/
+
+
+/**
+***************
+USERS ENDPOINTS 
+***************
+**/
+
+/**
+ * This method deletes a photo from the user's profile.
+ * @returns {Promise}
+ */
+Slack.prototype.deleteUserPhoto = function() {
+    return this._post('users.deletePhoto', {} );
+};
+
+/**
+ * This method gets info about user's presence.
+ * @param {string} id - User ID
+ * @returns {Promise}
+ */
+Slack.prototype.getUserPresence = function(id) {
+    return this._post('users.getPresence', {user: id} );
+};
+
+/**
+ * This method gets info about user's identity.
+ * @returns {Promise}
+ */
+Slack.prototype.getUserIdentity = function() {
+    return this._post('users.identity', {} );
+};
+
+/**
+ * This method gets info about the user.
+ * @param {string} id - User ID
+ * @returns {Promise}
+ */
+Slack.prototype.getUserInfo = function(id) {
+    return this._post('users.info', {user: id} );
+};
+
+/**
+ * This method return all users.
+ * @returns {Promise}
+ */
+Slack.prototype.getUsersList = function() {
+    return this._post('users.list', {} );
+};
+
+/**
+ * This method sets the User as active. 
+ * @returns {Promise}
+ */
+Slack.prototype.setUserActive = function() {
+    return this._post('users.setActive', {} );
+};
+
+/**
+ * This method sets a photo on the User's profile. 
+ * @param {object} data - see Body requirements in: https://api.slack.com/methods/users.setPhoto
+ * @returns {Promise}
+ */
+Slack.prototype.setUserPhoto = function(data) {
+    return this._post('users.setPhoto', data );
+};
+
+/**
+ * This method sets the User's presence. 
+ * @param {string} presence - Either "auto" or "away"
+ * @returns {Promise}
+ */
+Slack.prototype.setUserPresence = function(presence) {
+    return this._post('users.setPresence', {presence: presence} );
+};
+
+
+
+/**
+***************
+USERS.PROFILE ENDPOINTS : TODO 
+***************
+**/
+
 
 /**
  * Send POST request to API method

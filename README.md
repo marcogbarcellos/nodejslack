@@ -13,6 +13,10 @@ npm install nodejslack
 
 ## Methods
 
+### Bots
+
+- `getBotInfo(id)` (return: promise) - Gets information about a Bot
+
 ### Channels
 
 - `archiveChannel(id)` (return: promise) - Archives a channel,
@@ -65,7 +69,16 @@ npm install nodejslack
 - `fileEditComment(id, fileId, comment)` (return: promise) - Edit an existing comment about a file
 - `fileDeleteComment(id, fileId)` (return: promise) - Delete a comment about a file
 
+### Users
 
+- `deleteUserPhoto()` (return: promise) - Deletes a photo from the user's profile,
+- `getUserPresence(id)` (return: promise) - Gets user's presence,
+- `getUserIdentity()` (return: promise) - Gets user's identity,
+- `getUserInfo(id)` (return: promise) - Gets user's info,
+- `getUsersList()` (return: promise) - Gets all users,
+- `setUserActive()` (return: promise) - Sets user's as active,
+- `setUserPhoto(data)` (return: promise) - Sets a photo to the user's profile,
+- `setUserPresence(presence)` (return: promise) - Sets user's presence(Either "auto" or "away")
 
 
 ## Usage
